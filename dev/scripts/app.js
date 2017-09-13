@@ -95,16 +95,18 @@ class App extends React.Component {
 		render() {
 			const showPassengers = (car) => {
 				if (car.passengers.length === car.spots) {
-					return <p>There are no spots left in this car</p>
+					return <p>There are <span className="bold">no spots </span> left in this car</p>
 				} else {
-					return <p>There are {car.spots - car.passengers.length} spots left in the car</p>
+					return <p>There are <span className="bold">{car.spots - car.passengers.length} spots </span> left in the car</p>
 				}
 			};
 			return (
 					<div className="app">
 						<header>
 							<div className="wrapper">
-								<h1>Friend🦐</h1>
+								<div className="titleContainer">
+										<h1>Friend🦐</h1>
+								</div>
 							</div>
 						</header>
 						<section className="main">
@@ -134,7 +136,9 @@ class App extends React.Component {
 									</select>
 									<input type="text" name="leavingFrom"  onChange={this.handleChange} placeholder="Where are you leaving from?"/>
 									<input type="date" name="leavingAt" onChange={this.handleChange} placeholder="What day are you leaving?"/>
-									<button>Add Car</button>
+									<div className="buttonContainer">
+										<button className="addButton"><i className="fa fa-plus" aria-hidden="true"></i></button>
+									</div>
 								</form>
 								:
 								<p></p> 
@@ -143,19 +147,26 @@ class App extends React.Component {
 						</section>
 						<section className="displayCars">
 							<div className="wrapper">
-								<ul>
+								<ul className="cardsContainer">
 								{this.state.items.map((item) => {
 										return (
 										<li className="card" key={item.id}>
-											<h3>{item.user}'s car</h3>
+											<div className="cardTitleContainer">
+												<h3>{item.user}'s Car</h3>
+												<button className="addButton addButton--Card" disabled={item.passengers.length >= item.spots} onClick={() => this.joinClick(item.id)}><i className="fa fa-plus" aria-hidden="true"></i></button>
+											</div>
+											
+											<div className="cardBylineContainer">
 											{showPassengers(item)}
-											<p className="leaving">This car is leaving from {item.leavingFrom} on {item.leavingAt}</p>
-											<p className="passengerTitle"> Passengers</p>
-											<ul>
-												{item.passengers.map(passenger => <li key={passenger.id}> <i className="fa fa-user" aria-hidden="true"></i> {passenger.passengerName} <button className="removePass"onClick={() => this.removePass(item.id, passenger.id)}><i className="fa fa-times" aria-hidden="true"></i></button> </li>)}
-											</ul>
+												<p className="leaving">This car is leaving from <span className="bold">{item.leavingFrom}</span> on <span className="bold">{item.leavingAt}</span></p>
+											</div>
+											<div className="passengerContainer">
+												<p className="passengerTitle"> Passengers</p>
+												<ul className="passengerNameContainer">
+													{item.passengers.map(passenger => <li key={passenger.id}> {passenger.passengerName} <button className="removePass"onClick={() => this.removePass(item.id, passenger.id)}><i className="fa fa-times" aria-hidden="true"></i></button> </li>)}
+												</ul>
+											</div>
 											<button className="removeCard"onClick={() => this.removeItem(item.id)}><i className="fa fa-times" aria-hidden="true"></i></button>
-											<button disabled={item.passengers.length >= item.spots} onClick={() => this.joinClick(item.id)}>Join Ride!</button>
 										</li>
 										)
 									 {/*else if (item.hasCar === "yes" && item.spots == 0) {
