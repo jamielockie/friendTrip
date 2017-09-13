@@ -101,7 +101,7 @@ class App extends React.Component {
 						<header>
 							<div className="wrapper">
 								<div className="titleContainer">
-										<h1>Friend🦐</h1>
+										<h1>Friend <img className="shrimp" src="dev/styles/assets/shrimp.png" alt="shrimp"/></h1>
 								</div>
 							</div>
 						</header>
