@@ -107,7 +107,7 @@ class App extends React.Component {
 						</header>
 						<section className="main">
 							<div className="carInputContainer">
-								<form className="initialForm" onSubmit={this.handleSubmit}>
+								<form className="initialForm animated fadeIn" onSubmit={this.handleSubmit}>
 									<input type="text" name="username" onChange={this.handleChange} placeholder="Which friend are you?" value={this.state.username}/>
 									<select id="hasCar" name="hasCar" onChange={this.handleChange}>
 										<option value="select"defaultValue>Do you have a ride?</option>
