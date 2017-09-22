@@ -11,6 +11,35 @@ $lightGrey: #6e6e6e;
 
 $lightText: #fff;
 
+
+// MQs
+
+@mixin respond-to($breakpoint) {
+	@if $breakpoint == "smallPhone" {
+		@media (max-width: 320px) {
+			@content;
+		}
+}
+
+	@else if $breakpoint == "phone" {
+		@media (max-width: 500px) {
+			@content;
+		}
+}
+
+	@else if $breakpoint == "tablet" {
+		@media (max-width: 880px) {
+			@content;
+		}
+	}
+
+	@else {
+		@media ($breakpoint) {
+			@content;
+		}
+	}
+}
+
 // Typography
 
 * {
@@ -24,8 +53,8 @@ h1 {
 	color: $lightText;
 	font-weight: 700;
 	font-size: 28px;
-	position: absolute;
-	padding-bottom: 30px;
+	// position: absolute;
+	padding: 0px 0px 30px 30px
 }
 
 h3 {
@@ -54,6 +83,6 @@ ul {
 }
 
 .wrapper {
-	width: 90%;
+	width: 100%;
 	margin: 0 auto;
 }

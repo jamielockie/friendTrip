@@ -49,7 +49,9 @@ class App extends React.Component {
 				[event.target.name]: event.target.value,
 			})
 		};
-
+		helpMe() {
+			swal("Welcome to FriendTrip", "Tell us your name and whether you have a car. Add your car by pressing the Plus button. If you don't have a ride, enter your name and add yourself as a passenger by pressing the passenger button on the card.", "info")
+		}
 		joinClick(key) {
 			const itemRef = firebase.database().ref(`/items/${key}/passengers`);
 			itemRef.push(this.state.username)
@@ -91,9 +93,11 @@ class App extends React.Component {
 		render() {
 			const showPassengers = (car) => {
 				if (car.passengers.length === car.spots) {
-					return <p>There are <span className="bold">no spots </span> left in this car</p>
+					return <p><span className="bold">no spots </span> left</p>
+				} else if (car.passengers.length === 1) {
+					return <p><span className="bold">1 spot </span> left</p>
 				} else {
-					return <p>There are <span className="bold">{car.spots - car.passengers.length} spots </span> left in the car</p>
+					return <p><span className="bold">{car.spots - car.passengers.length} spots </span> left</p>
 				}
 			};
 			return (
@@ -102,6 +106,7 @@ class App extends React.Component {
 							<div className="wrapper">
 								<div className="titleContainer">
 										<h1>FriendTrip <img className="trip" src="dev/styles/assets/man-falling-off-a-precipice.png" alt="tripping"/></h1>
+										<button className="button__help " onClick={() => this.helpMe()}><i className="fa fa-question-circle-o" aria-hidden="true"></i></button>
 								</div>
 							</div>
 						</header>
@@ -130,7 +135,7 @@ class App extends React.Component {
 									<input type="text" name="leavingFrom"  onChange={this.handleChange} placeholder="Where are you leaving from?"/>
 									<input type="date" name="leavingAt" onChange={this.handleChange} placeholder="What day are you leaving?"/>
 									<div className="buttonContainer">
-										<button className="addButton"><i className="fa fa-plus" aria-hidden="true"></i></button>
+										<button className="addButton" title="Add Car"><i className="fa fa-plus" aria-hidden="true"></i></button>
 									</div>
 								</form>
 								:
@@ -146,20 +151,20 @@ class App extends React.Component {
 										<li className="card animated fadeInDown" key={item.id}>
 											<div className="cardTitleContainer">
 												<h3>{item.user}'s Car</h3>
-												<button className="addButton addButton--Card" disabled={item.passengers.length >= item.spots} onClick={() => this.joinClick(item.id)}><i className="fa fa-plus" aria-hidden="true"></i></button>
+												<button className="addButton addButton--Card" title="Add Passenger"disabled={item.passengers.length >= item.spots} onClick={() => this.joinClick(item.id)}><i className="fa fa-user" aria-hidden="true"></i></button> 	
 											</div>
 											
 											<div className="cardBylineContainer">
 											{showPassengers(item)}
-												<p className="leaving">This car is leaving from <span className="bold">{item.leavingFrom}</span> on <span className="bold">{item.leavingAt}</span></p>
+												<p className="leaving">Leaving from <span className="bold">{item.leavingFrom}</span> <br></br> On <span className="bold">{item.leavingAt}</span></p>
 											</div>
 											<div className="passengerContainer">
 												<p className="passengerTitle"> Passengers</p>
 												<ul className="passengerNameContainer">
-													{item.passengers.map(passenger => <li className="animated fadeIn" key={passenger.id}> {passenger.passengerName} <button className="removePass"onClick={() => this.removePass(item.id, passenger.id)}><i className="fa fa-times" aria-hidden="true"></i></button> </li>)}
+													{item.passengers.map(passenger => <li className="animated fadeIn" key={passenger.id}> {passenger.passengerName} <button className="removePass"onClick={() => this.removePass(item.id, passenger.id)}><i className="fa fa-times" title="Remove Passenger" aria-hidden="true"></i></button> </li>)}
 												</ul>
 											</div>
-											<button className="removeCard"onClick={() => this.removeItem(item.id)}><i className="fa fa-times" aria-hidden="true"></i></button>
+											<button className="removeCard"onClick={() => this.removeItem(item.id)}><i className="fa fa-times" title="Remove Card" aria-hidden="true"></i></button>
 										</li>
 										)
 									})}
