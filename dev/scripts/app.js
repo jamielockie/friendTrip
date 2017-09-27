@@ -55,7 +55,6 @@ class App extends React.Component {
 		joinClick(key) {
 			const itemRef = firebase.database().ref(`/items/${key}/passengers`);
 			itemRef.push(this.state.username)
-			console.log("chicken", this.state.username);
 		};
 
 		removeItem(key) {
