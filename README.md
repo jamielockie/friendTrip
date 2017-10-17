@@ -1,5 +1,5 @@
-# Getting Started
+# friendTrip
 
-1. `git clone` this repo
-2. `npm install`
-3. enjoy!
+React.js carpooling app! GET A RIDE.
+
+Don't forget to npm install. 

@@ -49,6 +49,7 @@ class App extends React.Component {
 				[event.target.name]: event.target.value,
 			})
 		};
+		
 		helpMe() {
 			swal("Welcome to FriendTrip", "Tell us your name and whether you have a car. Add your car by pressing the Plus button. If you don't have a ride, enter your name and add yourself as a passenger by pressing the passenger button on the card.", "info")
 		}
