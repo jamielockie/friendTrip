@@ -172,6 +172,7 @@ class App extends React.Component {
 							</div>
 						</section>
 					</div>
+					// This is a new branch!
 				)
 		}
 }
